@@ -4,16 +4,21 @@
 
 # Seismiqb
 
-`seismiqb` is a framework for deep learning research on 3d-cubes of seismic data. It allows to
+`seismiqb` is a framework for deep learning research on seismic data including pre-stack and post-stack `SEG-Y`s, horizons and other
+seismic geobodies. The framework allows to
 
 * `sample` and `load` crops of `SEG-Y` cubes for training neural networks
-* convert `SEG-Y` cubes to `HDF5`-format for even faster `load`
-* `create_masks` of different types from horizon labels for segmenting horizons, facies and other seismic bodies
-* build augmentation pipelines using custom augmentations for seismic data as well as `rotate`, `noise` and `elastic_transform`
+* convert `SEG-Y` cubes to `HDF5`-format for lighting fast `load` - 10x faster compared to `SEG-Y`
+* build augmentation pipelines using custom augmentations for seismic data, including `hilbert`-transform and bandpass filtering, as well as classic `rotate`, `noise`, `elastic_transform` and `cutout`
 * segment horizons and interlayers using [`UNet`](https://arxiv.org/abs/1505.04597) and [`Tiramisu`](https://arxiv.org/abs/1611.09326)
 * extend horizons from a couple of seismic `ilines` in spirit of classic autocorrelation tools but with deep learning
 * convert predicted masks into horizons for convenient validation by geophysicists
 
+The application of the framework is not limited to deep learning. One can use it just fine to
+
+* build quality-maps of seismic data
+* perform automatic QC of seismic horizons without human involvement, using the range of correlation-based metrics
+* conveniently gather all sorts of seismic data statistics, including amplitude and phase distributions for fast evaluation and comparison
 
 ## Installation
 
@@ -21,10 +26,20 @@
 git clone --recursive https://github.com/gazprom-neft/seismiqb.git
 ```
 
-## Turorials
+## Tutorials
 
-### [Cube-preprocessing](tutorials/2.%20Batch.ipynb)
+## Working with seismic data
+
+### [Seismic `geometry`](tutorials/01_Geometry.ipynb)
+Checking out seismic cubes without loading them in memory.
+
+### [Dealing with seismic geobodies](tutorials/02_Horizon.ipynb)
+learn to work with different seismic geobodies with focus on seismic horizons.
+
+### [Cube-preprocessing](tutorials/03_Cubeset.ipynb)
 Seismic cube preprocessing: `load_cubes`, `create_masks`, `scale`, `cutout_2d`, `rotate` and others.
+
+## Deep learning for seismic horizon detection
 
 ### [Horizon segmentations](models/Horizons_detection.ipynb)
 Solving a task of binary segmentation to detect seismic horizons.
